@@ -1,0 +1,261 @@
+/* Llama Segura — hero mobile-first
+   Layout: una columna en móvil (copy → formulario → beneficios → certificado);
+   desde 1024px, copy a la izquierda y formulario fijo a la derecha. */
+
+:root {
+  --bg: #eef3f3;
+  --surface: #ffffff;
+  --ink: #13212b;
+  --muted: #4d5f69;
+  --line: #d3dee0;
+  --flame: #d9480f;
+  --flame-ink: #ffffff;
+  --gas: #1d6a73;
+  --gas-soft: #dcecee;
+  --wa: #1a7f45;
+  --error: #b42318;
+  --ok: #1a7f45;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgb(19 33 43 / 6%), 0 12px 32px -12px rgb(19 33 43 / 22%);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1519;
+    --surface: #152127;
+    --ink: #e6eef0;
+    --muted: #a3b4ba;
+    --line: #2a3a41;
+    --flame: #ff7433;
+    --flame-ink: #1a0d06;
+    --gas: #5cbcc6;
+    --gas-soft: #18343a;
+    --wa: #3fbf73;
+    --error: #ff8a80;
+    --ok: #3fbf73;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 12px 32px -12px rgb(0 0 0 / 60%);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0d1519;
+  --surface: #152127;
+  --ink: #e6eef0;
+  --muted: #a3b4ba;
+  --line: #2a3a41;
+  --flame: #ff7433;
+  --flame-ink: #1a0d06;
+  --gas: #5cbcc6;
+  --gas-soft: #18343a;
+  --wa: #3fbf73;
+  --error: #ff8a80;
+  --ok: #3fbf73;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 12px 32px -12px rgb(0 0 0 / 60%);
+  color-scheme: dark;
+}
+
+.ls-page {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  min-height: 100%;
+}
+
+.ls-page [hidden] { display: none !important; }
+
+.ls-page *,
+.ls-page *::before,
+.ls-page *::after { box-sizing: border-box; }
+
+.ls-wrap {
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Barra superior */
+.ls-top { border-bottom: 1px solid var(--line); background: var(--surface); }
+.ls-top .ls-wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding-block: 12px;
+}
+.ls-brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+.ls-brand svg { width: 26px; height: 26px; flex: none; }
+.ls-top-call { font-size: .875rem; color: var(--muted); text-align: right; }
+.ls-top-call a { color: var(--ink); font-weight: 700; text-decoration: none; white-space: nowrap; }
+
+/* Hero */
+.ls-hero .ls-wrap {
+  display: grid;
+  gap: 28px;
+  padding-block: 24px 112px; /* espacio para la barra fija móvil */
+}
+.ls-copy { display: grid; gap: 16px; min-width: 0; }
+.ls-proof { display: grid; gap: 20px; min-width: 0; order: 2; }
+.ls-eyebrow {
+  margin: 0;
+  font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--gas);
+}
+.ls-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 6.4vw, 3.3rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+.ls-title em { font-style: normal; color: var(--flame); }
+.ls-sub { margin: 0; color: var(--muted); font-size: 1.0625rem; max-width: 34em; }
+
+.ls-price {
+  margin: 0;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
+  font-variant-numeric: tabular-nums;
+}
+.ls-price strong { font-family: var(--font-display); font-size: 1.75rem; line-height: 1; }
+.ls-price span { color: var(--muted); font-size: .9375rem; }
+
+/* Beneficios */
+.ls-benefits { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ls-benefits li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+.ls-benefits svg { width: 22px; height: 22px; color: var(--gas); margin-top: 1px; }
+
+/* Certificado (elemento de confianza) */
+.ls-tag {
+  position: relative;
+  border: 1px dashed var(--gas);
+  border-radius: var(--radius);
+  background: var(--gas-soft);
+  padding: 16px 16px 14px 44px;
+  display: grid; gap: 8px;
+  max-width: 420px;
+}
+.ls-tag::before {
+  content: ""; position: absolute; left: 16px; top: 18px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--gas); background: var(--bg);
+}
+.ls-tag-title { font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gas); margin: 0; }
+.ls-tag dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; font-size: .9375rem; }
+.ls-tag dt { color: var(--muted); }
+.ls-tag dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+
+/* Formulario */
+.ls-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: grid; gap: 14px;
+  min-width: 0;
+  order: 1;
+}
+.ls-card h2 { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.2; margin: 0; }
+.ls-card-sub { margin: -6px 0 0; color: var(--muted); font-size: .9375rem; }
+
+.ls-form-grid { display: grid; gap: 14px; }
+.ls-field { display: grid; gap: 6px; }
+.ls-field label { font-weight: 600; font-size: .9375rem; }
+.ls-field input {
+  font: inherit; font-size: 1rem;
+  min-height: 48px; padding: 10px 14px;
+  border: 1.5px solid var(--line); border-radius: 10px;
+  background: var(--bg); color: var(--ink);
+}
+.ls-field input:focus-visible { outline: 3px solid var(--gas); outline-offset: 1px; border-color: var(--gas); }
+.ls-field[data-invalid="true"] input { border-color: var(--error); }
+.ls-error { color: var(--error); font-size: .875rem; min-height: 0; }
+.ls-error:empty { display: none; }
+
+.ls-consent { display: grid; grid-template-columns: 20px 1fr; gap: 10px; font-size: .8125rem; color: var(--muted); align-items: start; }
+.ls-consent input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--gas); }
+.ls-consent a { color: inherit; }
+
+.ls-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+.ls-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 12px 20px;
+  border-radius: 12px; border: 0;
+  font: inherit; font-weight: 700; font-size: 1.0625rem;
+  text-decoration: none; cursor: pointer;
+  transition: transform .12s ease, filter .12s ease;
+}
+.ls-btn:hover { filter: brightness(1.05); }
+.ls-btn:active { transform: translateY(1px); }
+.ls-btn:focus-visible { outline: 3px solid var(--gas); outline-offset: 2px; }
+.ls-btn[disabled] { opacity: .65; cursor: progress; }
+.ls-btn svg { width: 20px; height: 20px; flex: none; }
+.ls-btn--primary { background: var(--flame); color: var(--flame-ink); width: 100%; }
+.ls-btn--wa { background: var(--wa); color: #fff; }
+.ls-btn--ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+
+.ls-alt { display: grid; gap: 8px; padding-top: 4px; border-top: 1px solid var(--line); }
+.ls-alt p { margin: 8px 0 0; font-size: .875rem; color: var(--muted); }
+.ls-alt-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ls-alt-row .ls-btn { font-size: .9375rem; min-height: 46px; padding-inline: 10px; }
+
+.ls-success { display: grid; gap: 8px; text-align: left; }
+.ls-success h2 { color: var(--ok); }
+.ls-ref { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: .875rem; color: var(--muted); }
+
+/* Barra fija móvil (decisión CRO) */
+.ls-sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  background: var(--surface); border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 24px -12px rgb(19 33 43 / 25%);
+  padding-top: 10px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.ls-sticky .ls-btn { min-height: 48px; font-size: .9375rem; }
+
+/* Panel de medición (solo demo) */
+.ls-debug { border-top: 1px solid var(--line); background: var(--surface); }
+.ls-debug .ls-wrap { padding-block: 16px 120px; }
+.ls-debug summary { cursor: pointer; font-weight: 700; }
+.ls-debug p { color: var(--muted); font-size: .875rem; margin: 8px 0; overflow-wrap: anywhere; }
+.ls-debug pre {
+  margin: 0; max-height: 280px; overflow: auto;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px; font-size: .75rem; line-height: 1.45;
+}
+.ls-demo-note { font-size: .75rem; color: var(--muted); }
+
+@media (min-width: 768px) {
+  .ls-sticky { display: none; }
+  .ls-hero .ls-wrap { padding-block: 48px 56px; }
+  .ls-debug .ls-wrap { padding-block: 16px 32px; }
+  .ls-card { padding: 28px; }
+}
+
+@media (min-width: 1024px) {
+  .ls-hero .ls-wrap {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+    grid-template-areas: "copy card" "proof card";
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    gap: 56px;
+    padding-block: 64px 72px;
+  }
+  .ls-copy { grid-area: copy; }
+  .ls-proof { grid-area: proof; }
+  .ls-card { grid-area: card; position: sticky; top: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-btn { transition: none; }
+}
